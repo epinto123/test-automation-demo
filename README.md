@@ -13,22 +13,6 @@ Dependencies
 1. .NET 6.0
 1. Docker
 
-# Exercise
-
-Write automated tests that show a working UI by implementing the following tests
-
-```
-Given I want to add a book
-When I add a book
-Then the book should render on the screen
-```
-
-```
-Given I want to delete a book
-When I delete a book
-Then the book should be removed from the screen
-```
-
 # How to run automated Tests
 
 ```
@@ -58,3 +42,19 @@ yarn docker:bookmanager:down
 ```
 
 ***Note: If you are using the application with your browser and not running the acceptance tests, change `REACT_APP_API_URL` in the `docker-compose.testing.yml` file to `http://localhost:5001` or you will get a `cors` error.***
+
+# Exercise
+
+Write automated tests that show a working UI by implementing the following tests
+
+```
+Given I want to add a book
+When I add a book
+Then the book should render on the screen
+```
+
+```
+Given I want to delete a book
+When I delete a book
+Then the book should be removed from the screen
+```
