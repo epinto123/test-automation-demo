@@ -1,0 +1,70 @@
+version: '3.4'
+
+services:
+  testautomationdemo.bookmanagerapi:
+    image: ${DOCKER_REGISTRY-}bookmanagerapi
+    hostname: bookmanagerapi
+    container_name: bookmanagerapi
+    build:
+      context: ./
+      dockerfile: src/BookManager.Api/Dockerfile
+    ports:
+      - "5001:80"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:80
+
+  testautomationdemo.bookmanagerui:
+    image: ${DOCKER_REGISTRY-}bookmanagerui
+    hostname: bookmanager-ui
+    depends_on:
+      - testautomationdemo.bookmanagerapi
+    build:
+      context: ./src/bookmanager.ui/
+      dockerfile: Dockerfile
+    ports:
+      - 3001:3000
+    volumes:
+      - './src/bookmanager.ui/:/app'
+      - '/app/node_modules'
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+      - REACT_APP_API_URL=http://bookmanagerapi
+      # - REACT_APP_API_URL=http://localhost:5001
+      - REACT_APP_STAGE=docker
+    stdin_open: true
+    tty: true
+  chrome:
+    image: selenium/node-chrome:latest
+    shm_size: 2gb
+    depends_on:
+      - selenium-hub
+      - testautomationdemo.bookmanagerui
+    environment:
+      - SE_EVENT_BUS_HOST=selenium-hub
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+      - SE_NODE_GRID_URL=http://localhost:4444
+      - SE_NODE_SESSION_TIMEOUT=300
+      - SE_OPTS=--log-level FINE
+    ports:
+      - "6900:5900"
+  selenium-hub:
+    image: selenium/hub:latest
+    container_name: selenium-hub
+    ports:
+      - "4442:4442"
+      - "4443:4443"
+      - "4444:4444"
+    environment:
+      - SE_OPTS=--log-level FINE
+  chrome_video:
+    image: selenium/video:latest
+    volumes:
+      - ./test/BookManager.Acceptance.Tests/Artifacts:/videos
+    depends_on:
+      - chrome
+    environment:
+      - DISPLAY_CONTAINER_NAME=chrome
+      - FILE_NAME=chrome_video.mp4
+      - SE_OPTS=--log-level FINE
