@@ -9,7 +9,7 @@
   "scripts": {
     "docker:bookmanager:up": "docker-compose -f scripts/orchestration/docker-compose.testing.yml -p book-manager-ci --project-directory . up -d --remove-orphans",
     "docker:bookmanager:down": "docker-compose -f scripts/orchestration/docker-compose.testing.yml -p book-manager-ci --project-directory . down --remove-orphans",
-    "pretest": "yarn run docker:bookmanager:up && wait-on tcp:5001 -t 30000 && wait-on tcp:3001 -t 30000",
+    "pretest": "yarn run docker:bookmanager:up",
     "test": "cross-env-shell dotnet test --logger trx BookManager.sln --configuration ${npm_package_configuration} -v n || yarn run test:fail",
     "test:fail": "yarn run posttest && exit -1",
     "posttest": "yarn run docker:bookmanager:down"
