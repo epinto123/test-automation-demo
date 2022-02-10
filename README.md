@@ -40,3 +40,21 @@ yarn test
 ```
 
 To take a look at the video showing the UI test automation in the ```test/BookManager.Acceptance.Tests/Artifacts``` directory
+
+# How to stand up the book manager application
+
+```
+yarn install
+```
+### To bring up the running container instances
+```
+yarn docker:bookmanager:up
+```
+
+### To shut down the running container instances
+
+```
+yarn docker:bookmanager:down
+```
+
+***Note: If you are using the application with your browser and not running the acceptance tests, change `REACT_APP_API_URL` in the `docker-compose.testing.yml` file to `http://localhost:5001` or you will get a `cors` error.***
