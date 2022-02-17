@@ -76,7 +76,7 @@ function BookManager() {
       <Row>
         <Col md={1} />
         <Col md={10}>
-          <Table striped bordered hover style={{ marginTop: '20px' }}>
+          {books.length > 0 ? (<Table striped bordered hover style={{ marginTop: '20px' }}>
             <thead>
               <tr style={{ textAlign: 'left' }}>
                 <th>Title</th>
@@ -95,7 +95,7 @@ function BookManager() {
                   handleBookDeleteClick={handleBookDeleteClick}
                 />))}
             </tbody>
-          </Table>
+          </Table>) : (<h3>No books currently on record</h3>)}
         </Col>
         <Col md={1} />
       </Row>
