@@ -1,0 +1,49 @@
+trigger:
+- master
+
+pool:
+  vmImage: ubuntu-latest
+
+stages:
+  - stage: Tests
+    jobs:
+      - job: Tests
+        pool:
+          vmImage: 'ubuntu-latest'
+        steps:
+          - script: |
+              yarn install
+            displayName: 'Install UI packages'
+            workingDirectory: src/bookmanager.ui
+          - script: |
+              yarn run test
+            env:
+              CI: true
+            workingDirectory: src/bookmanager.ui
+            displayName: 'Run UI tests'
+          - task: DotNetCoreCLI@2
+            displayName: "Restore solution packages"
+            inputs:
+              command: 'restore'
+              projects: '*.sln'
+              feedsToUse: 'select'
+          - script: |
+              yarn install
+            displayName: 'Install NPM packages'
+          - script: |
+              yarn test
+            displayName: "Run solution tests"
+          - task: PublishTestResults@2
+            condition: succeededOrFailed()
+            displayName: 'Publish test results'
+            inputs:
+              testResultsFormat: 'VSTest'
+              testResultsFiles: '**/*.trx'
+          - task: PublishBuildArtifacts@1
+            condition: succeededOrFailed()
+            displayName: 'Publish Test Artifacts'
+            inputs:
+              pathToPublish: 'test/BookManager.Acceptance.Tests/Artifacts'
+              artifactName: 'Automated_Test_Artifacts'
+              publishLocation: 'Container'
+          
