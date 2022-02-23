@@ -14,12 +14,12 @@ stages:
           - script: |
               yarn install
             displayName: 'Install UI packages'
-            workingDirectory: src/bookmanager.ui
+            workingDirectory: complete/src/bookmanager.ui
           - script: |
               yarn run test
             env:
               CI: true
-            workingDirectory: src/bookmanager.ui
+            workingDirectory: complete/src/bookmanager.ui
             displayName: 'Run UI tests'
           - task: DotNetCoreCLI@2
             displayName: "Restore solution packages"
@@ -43,7 +43,7 @@ stages:
             condition: succeededOrFailed()
             displayName: 'Publish Test Artifacts'
             inputs:
-              pathToPublish: 'test/BookManager.Acceptance.Tests/Artifacts'
+              pathToPublish: 'complete/test/BookManager.Acceptance.Tests/Artifacts'
               artifactName: 'Automated_Test_Artifacts'
               publishLocation: 'Container'
           
