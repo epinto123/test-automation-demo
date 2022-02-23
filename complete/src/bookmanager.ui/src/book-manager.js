@@ -80,8 +80,7 @@ function BookManager() {
             <thead>
               <tr style={{ textAlign: 'left' }}>
                 <th>Title</th>
-                <th>Author First Name</th>
-                <th>Author Last Name</th>
+                <th>Author's Name</th>
                 <th>Year Published</th>
                 <th />
               </tr>

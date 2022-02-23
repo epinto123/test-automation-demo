@@ -1,4 +1,4 @@
-﻿namespace BookManager.Api.Models
+﻿namespace BookManager.Api.Models.Input
 {
     public class Book
     {

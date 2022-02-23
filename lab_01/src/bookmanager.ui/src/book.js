@@ -16,8 +16,7 @@ function Book(props) {
   return (
     <tr>
       <td>{title}</td>
-      <td>{authorFirstName}</td>
-      <td>{authorLastName}</td>
+      <td>{authorFirstName} {authorLastName}</td>
       <td>{yearPublished}</td>
       <td>
         <Button id="delete-book-button" data-id={id} variant="danger" onClick={handleBookDeleteClick}>

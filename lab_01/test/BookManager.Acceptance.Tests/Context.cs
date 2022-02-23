@@ -16,21 +16,4 @@ public class Context
 
     public IConfiguration Configuration => _configuration;
     public Fixture Fixture => _fixture;
-
-    public string AddBook()
-    {
-        var bookTitle = Fixture.Create<string>();
-        var authorFirstName = Fixture.Create<string>();
-        var authorLastName = Fixture.Create<string>();
-        var yearPublished = Fixture.Create<int>().ToString();
-
-        Pages.BookManager.ClickAddBookModalButton();
-        Pages.AddBook.EnterBookTitle(bookTitle);
-        Pages.AddBook.EnterAuthorFirstName(authorFirstName);
-        Pages.AddBook.EnterAuthorLastName(authorLastName);
-        Pages.AddBook.EnterYearBookWasPublished(yearPublished);
-        Pages.AddBook.ClickAddBookButton();
-
-        return $"{bookTitle} {authorFirstName} {authorLastName} {yearPublished}";
-    }
 }

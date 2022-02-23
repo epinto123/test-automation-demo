@@ -18,8 +18,7 @@ describe('Book', () => {
     render(<table><tbody><Book {...props} /></tbody></table>);
 
     await waitFor(() => screen.getByText(props.title));
-    await waitFor(() => screen.getByText(props.authorFirstName));
-    await waitFor(() => screen.getByText(props.authorLastName));
+    await waitFor(() => screen.getByText(`${props.authorFirstName} ${props.authorLastName}`));
     await waitFor(() => screen.getByText(props.yearPublished));
   });
 });
