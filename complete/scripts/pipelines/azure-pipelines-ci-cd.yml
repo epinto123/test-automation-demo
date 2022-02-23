@@ -25,7 +25,7 @@ stages:
             displayName: "Restore solution packages"
             inputs:
               command: 'restore'
-              projects: '*.sln'
+              projects: 'complete/*.sln'
               feedsToUse: 'select'
           - script: |
               yarn install
