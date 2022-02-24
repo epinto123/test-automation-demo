@@ -32,6 +32,8 @@ stages:
             workingDirectory: 'complete'
             displayName: 'Install NPM packages'
           - script: |
+              mkdir test/BookManager.Acceptance.Tests/Artifacts
+              > test/BookManager.Acceptance.Tests/Artifacts/book-manager-ci.log
               yarn test
             workingDirectory: 'complete'
             displayName: "Run solution tests"
