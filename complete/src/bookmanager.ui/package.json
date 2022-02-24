@@ -18,7 +18,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --testResultsProcessor ./node_modules/jest-junit",
+    "test": "react-scripts test --env=jsdom --reporters=default --reporters=jest-junit",
     "eject": "react-scripts eject",
     "lint": "node ./node_modules/eslint/bin/eslint.js ./src --max-warnings=0"
   },
@@ -48,6 +48,7 @@
     "eslint-plugin-jsx-a11y": "^6.5.1",
     "eslint-plugin-react": "^7.28.0",
     "eslint-plugin-react-hooks": "^4.3.0",
+    "jest-junit": "^13.0.0",
     "msw": "^0.36.8"
   }
 }
