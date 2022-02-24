@@ -16,11 +16,21 @@ stages:
             displayName: 'Install UI packages'
             workingDirectory: complete/src/bookmanager.ui
           - script: |
+              yarn run lint
+            workingDirectory: complete/src/bookmanager.ui
+            displayName: 'Linting UI'
+          - script: |
               yarn run test
             env:
               CI: true
             workingDirectory: complete/src/bookmanager.ui
             displayName: 'Run UI tests'
+          - task: PublishTestResults@2
+            condition: succeededOrFailed()
+            displayName: 'Publish UI test results'
+            inputs:
+              testRunner: JUnit
+              testResultsFiles: 'complete/**/junit.xml'
           - task: DotNetCoreCLI@2
             displayName: "Restore solution packages"
             inputs:

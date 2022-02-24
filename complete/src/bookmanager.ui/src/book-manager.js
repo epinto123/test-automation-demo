@@ -18,36 +18,36 @@ function BookManager() {
   const [show, setShow] = useState(false);
 
   useEffect(() => {
-    getBooks().then(books => setBooks(books))
+    getBooks().then((booksFromResponse) => setBooks(booksFromResponse));
   }, []);
 
   const handleBookSubmit = (e) => {
     e.preventDefault();
     const { title, authorFirstName, authorLastName, yearPublished } = newBook;
     addBook({
-      title: title,
+      title,
       authorName: {
         firstName: authorFirstName,
-        lastName: authorLastName
+        lastName: authorLastName,
       },
-      yearPublished: yearPublished,
+      yearPublished,
     }).then(({ id }) => {
       setShow(false);
-      setBooks(state => ([...state, { ...newBook, id }]));
-      setNewBook(state => ({ ...state, title: '', authorFirstName: '', authorLastName: '', yearPublished: 0 }));
+      setBooks((state) => ([...state, { ...newBook, id }]));
+      setNewBook((state) => ({ ...state, title: '', authorFirstName: '', authorLastName: '', yearPublished: 0 }));
     });
-  }
+  };
 
   const handleBookDeleteClick = (e) => {
     const { currentTarget: { dataset } } = e;
 
     deleteBook(dataset.id).then(() => {
-      setBooks(state => {
-        const bookIndex = state.findIndex(book => book.id === dataset.id);
+      setBooks((state) => {
+        const bookIndex = state.findIndex((book) => book.id === dataset.id);
         return [...books.slice(0, bookIndex), ...books.slice(bookIndex + 1)];
       });
     });
-  }
+  };
 
   const handleChange = (e) => {
     const { target: { value, name } = {} } = e;
@@ -70,31 +70,34 @@ function BookManager() {
             {...newBook}
             handleBookSubmit={handleBookSubmit}
             handleChange={handleChange}
-            />
+          />
         </Col>
       </Row>
       <Row>
         <Col md={1} />
         <Col md={10}>
-          {books.length > 0 ? (<Table striped bordered hover style={{ marginTop: '20px' }}>
-            <thead>
-              <tr style={{ textAlign: 'left' }}>
-                <th>Title</th>
-                <th>Author's Name</th>
-                <th>Year Published</th>
-                <th />
-              </tr>
-            </thead>
-            <tbody>
-              {books.map(book => (
-                <Book
-                  key={book.id}
-                  {...book}
-                  isAdd={false}
-                  handleBookDeleteClick={handleBookDeleteClick}
-                />))}
-            </tbody>
-          </Table>) : (<h3>No books currently on record</h3>)}
+          {books.length > 0 ? (
+            <Table striped bordered hover style={{ marginTop: '20px' }}>
+              <thead>
+                <tr style={{ textAlign: 'left' }}>
+                  <th>Title</th>
+                  <th>Author&apos;s Name</th>
+                  <th>Year Published</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {books.map((book) => (
+                  <Book
+                    key={book.id}
+                    {...book}
+                    isAdd={false}
+                    handleBookDeleteClick={handleBookDeleteClick}
+                  />
+                ))}
+              </tbody>
+            </Table>
+          ) : (<h3>No books currently on record</h3>)}
         </Col>
         <Col md={1} />
       </Row>

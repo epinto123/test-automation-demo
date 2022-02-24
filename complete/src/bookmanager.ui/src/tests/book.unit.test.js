@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, waitFor, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import faker from '@faker-js/faker';
 
 import Book from '../book';
@@ -12,13 +12,13 @@ describe('Book', () => {
       authorLastName: faker.name.lastName(),
       yearPublished: faker.date.past().getFullYear(),
       id: faker.datatype.uuid(),
-      handleBookDeleteClick: jest.fn()
+      handleBookDeleteClick: jest.fn(),
     };
 
     render(<table><tbody><Book {...props} /></tbody></table>);
 
-    await waitFor(() => screen.getByText(props.title));
-    await waitFor(() => screen.getByText(`${props.authorFirstName} ${props.authorLastName}`));
-    await waitFor(() => screen.getByText(props.yearPublished));
+    expect(await screen.findByText(props.title)).toBeInTheDocument();
+    expect(await screen.findByText(`${props.authorFirstName} ${props.authorLastName}`)).toBeInTheDocument();
+    expect(await screen.findByText(props.yearPublished)).toBeInTheDocument();
   });
 });

@@ -15,7 +15,7 @@ describe('AddBook', () => {
       yearPublished: faker.date.past().getFullYear(),
       show: true,
       handleChange: jest.fn(),
-      handleBookSubmit: jest.fn()
+      handleBookSubmit: jest.fn(),
     };
 
     render(<AddBook {...props} />);
@@ -34,7 +34,7 @@ describe('AddBook', () => {
       yearPublished: faker.date.past().getFullYear(),
       show: true,
       handleChange: jest.fn(),
-      handleBookSubmit: jest.fn()
+      handleBookSubmit: jest.fn(),
     };
 
     render(<AddBook {...props} />);

@@ -7,7 +7,7 @@ const deleteResponse = (_, res, ctx) => res(ctx.text(''));
 
 export const handlers = [
   rest.get('/api/books', addResponse),
-  rest.delete('/api/books/*', deleteResponse)
+  rest.delete('/api/books/*', deleteResponse),
 ];
 
 export default {
