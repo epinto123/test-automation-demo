@@ -29,9 +29,11 @@ stages:
               feedsToUse: 'select'
           - script: |
               yarn install
+            workingDirectory: 'complete'
             displayName: 'Install NPM packages'
           - script: |
               yarn test
+            workingDirectory: 'complete'
             displayName: "Run solution tests"
           - task: PublishTestResults@2
             condition: succeededOrFailed()
