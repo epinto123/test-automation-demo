@@ -54,8 +54,10 @@ namespace BookManager.Acceptance.Tests
             // setup
             Browsers.Goto(_context.Configuration["bookManagerUIUrl"]);
             _context.AddBook();
+            Thread.Sleep(TimeSpan.FromSeconds(2));
             var addedBookToDelete = _context.AddBook();
-            
+            Thread.Sleep(TimeSpan.FromSeconds(2));
+
             // act
             Assembly.Pages.Book.DeleteLastAddedBook();
 
