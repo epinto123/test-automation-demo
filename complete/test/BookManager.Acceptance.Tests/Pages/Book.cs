@@ -1,7 +1,7 @@
 ﻿using OpenQA.Selenium;
 using BookManager.Acceptance.Tests.Assembly;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace BookManager.Acceptance.Tests.Pages
 {
@@ -25,6 +25,13 @@ namespace BookManager.Acceptance.Tests.Pages
             var tableRows = By.XPath("//tbody/tr").RenderElements();
 
             return tableRows;
+        }
+
+        public IEnumerable<string> GetAllAddedBookIds()
+        {
+            var tableRows = By.XPath("//tbody/tr/td/button").RenderElements();
+
+            return tableRows.Select(bookRow => bookRow.GetAttribute("data-id"));
         }
     }
 }

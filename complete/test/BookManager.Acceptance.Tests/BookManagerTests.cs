@@ -2,9 +2,8 @@ using AutoFixture;
 using BookManager.Acceptance.Tests.Assembly;
 using FluentAssertions;
 using NUnit.Framework;
-using System;
 using System.Linq;
-using System.Threading;
+using System.Threading.Tasks;
 
 namespace BookManager.Acceptance.Tests
 {
@@ -40,8 +39,6 @@ namespace BookManager.Acceptance.Tests
             Assembly.Pages.AddBook.EnterYearBookWasPublished(yearPublished);
             Assembly.Pages.AddBook.ClickAddBookButton();
 
-            Thread.Sleep(TimeSpan.FromSeconds(5));
-
             // assert
             var addedBook = Assembly.Pages.Book.GetLastAddedBook();
             var expectedAddedBook = $"{bookTitle} {authorFirstName} {authorLastName} {yearPublished}";
@@ -54,14 +51,10 @@ namespace BookManager.Acceptance.Tests
             // setup
             Browsers.Goto(_context.Configuration["bookManagerUIUrl"]);
             _context.AddBook();
-            Thread.Sleep(TimeSpan.FromSeconds(2));
             var addedBookToDelete = _context.AddBook();
-            Thread.Sleep(TimeSpan.FromSeconds(2));
 
             // act
             Assembly.Pages.Book.DeleteLastAddedBook();
-
-            Thread.Sleep(TimeSpan.FromSeconds(5));
 
             // assert
             var allAddedBooks = Assembly.Pages.Book.GetAllAddedBooks().Select(addedBook => addedBook.Text).ToList();
@@ -70,8 +63,9 @@ namespace BookManager.Acceptance.Tests
         }
 
         [TearDown]
-        public void TearDown()
+        public async Task TearDownAsync()
         {
+            await _context.ClearAllBooksAsync();
             Browsers.Close();
         }
     }

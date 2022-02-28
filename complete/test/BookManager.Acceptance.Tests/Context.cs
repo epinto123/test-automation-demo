@@ -1,6 +1,10 @@
 ﻿using AutoFixture;
 using Microsoft.Extensions.Configuration;
 using BookManager.Acceptance.Tests.Assembly;
+using BookManager.Acceptance.Tests.Pages;
+using System.Threading.Tasks;
+using System;
+using NUnit.Framework;
 
 public class Context
 {
@@ -29,6 +33,27 @@ public class Context
         Pages.AddBook.ClickAddBookButton();
 
         return $"{bookTitle} {authorFirstName} {authorLastName} {yearPublished}";
+    }
+
+    public async Task ClearAllBooksAsync()
+    {
+        try
+        {
+            var book = new Book();
+            var bookIds = book.GetAllAddedBookIds();
+
+            using (var httpClient = new System.Net.Http.HttpClient())
+            {
+                foreach (var bookId in bookIds)
+                {
+                    await httpClient.DeleteAsync($"{_configuration["bookManagerApi"]}/api/books/{bookId}");
+                }
+            }
+        }
+        catch(Exception ex)
+        {
+            TestContext.WriteLine("Books could not be cleaned up", ex);
+        }
     }
 
     public IConfiguration Configuration => _configuration;

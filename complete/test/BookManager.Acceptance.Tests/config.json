@@ -8,5 +8,6 @@
     "**/platforms"
   ],
   "driverURL": "http://localhost:4444",
-  "bookManagerUIUrl": "http://bookmanager-ui:3000"
+  "bookManagerUIUrl": "http://bookmanager-ui:3000",
+  "bookManagerApi": "http://localhost:5001"
 }
