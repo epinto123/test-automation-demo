@@ -3,9 +3,9 @@ import { Table, Button, Container, Row, Col } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
-import Book from './book';
+import Book from './book.jsx';
 import { getBooks, addBook, deleteBook } from './api/book-manager';
-import AddBook from './add-book';
+import AddBook from './add-book.jsx';
 
 function BookManager() {
   const [books, setBooks] = useState([]);

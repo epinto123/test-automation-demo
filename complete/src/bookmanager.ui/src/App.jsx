@@ -1,5 +1,5 @@
 import React from 'react';
-import BookManager from './book-manager';
+import BookManager from './book-manager.jsx';
 
 function App() {
   return (
