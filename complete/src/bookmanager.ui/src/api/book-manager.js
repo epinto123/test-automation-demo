@@ -1,5 +1,5 @@
 export const getBooks = () => fetch(
-  `${process.env.REACT_APP_API_URL}/api/books`,
+  `${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/books`,
   {
     method: 'GET',
     mode: 'cors',
@@ -15,7 +15,7 @@ export const getBooks = () => fetch(
     yearPublished })));
 
 export const addBook = (book) => fetch(
-  `${process.env.REACT_APP_API_URL}/api/books`,
+  `${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/books`,
   {
     method: 'POST',
     mode: 'cors',
@@ -29,7 +29,7 @@ export const addBook = (book) => fetch(
   .then((response) => response.json());
 
 export const deleteBook = (id) => fetch(
-  `${process.env.REACT_APP_API_URL}/api/books/${id}`,
+  `${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/books/${id}`,
   {
     method: 'DELETE',
     mode: 'cors',

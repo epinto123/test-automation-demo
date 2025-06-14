@@ -34,37 +34,37 @@ services:
       - REACT_APP_STAGE=docker
     stdin_open: true
     tty: true
-  chrome:
-    image: selenium/node-chrome:latest
-    shm_size: 2gb
-    depends_on:
-      - selenium-hub
-      - testautomationdemo.bookmanagerui
-    environment:
-      - SE_EVENT_BUS_HOST=selenium-hub
-      - SE_EVENT_BUS_PUBLISH_PORT=4442
-      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
-      - SE_NODE_GRID_URL=http://localhost:4444
-      - SE_NODE_SESSION_TIMEOUT=300
-      - SE_OPTS=--log-level FINE
-    ports:
-      - "6900:5900"
-  selenium-hub:
-    image: selenium/hub:latest
-    container_name: selenium-hub
-    ports:
-      - "4442:4442"
-      - "4443:4443"
-      - "4444:4444"
-    environment:
-      - SE_OPTS=--log-level FINE
-  chrome_video:
-    image: selenium/video:latest
-    volumes:
-      - ./test/BookManager.Acceptance.Tests/Artifacts:/videos
-    depends_on:
-      - chrome
-    environment:
-      - DISPLAY_CONTAINER_NAME=chrome
-      - FILE_NAME=chrome_video.mp4
-      - SE_OPTS=--log-level FINE
+  # chrome:
+  #   image: selenium/node-chrome:latest
+  #   shm_size: 2gb
+  #   depends_on:
+  #     - selenium-hub
+  #     - testautomationdemo.bookmanagerui
+  #   environment:
+  #     - SE_EVENT_BUS_HOST=selenium-hub
+  #     - SE_EVENT_BUS_PUBLISH_PORT=4442
+  #     - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+  #     - SE_NODE_GRID_URL=http://localhost:4444
+  #     - SE_NODE_SESSION_TIMEOUT=300
+  #     - SE_OPTS=--log-level FINE
+  #   ports:
+  #     - "6900:5900"
+  # selenium-hub:
+  #   image: selenium/hub:latest
+  #   container_name: selenium-hub
+  #   ports:
+  #     - "4442:4442"
+  #     - "4443:4443"
+  #     - "4444:4444"
+  #   environment:
+  #     - SE_OPTS=--log-level FINE
+  # chrome_video:
+  #   image: selenium/video:latest
+  #   volumes:
+  #     - ./test/BookManager.Acceptance.Tests/Artifacts:/videos
+  #   depends_on:
+  #     - chrome
+  #   environment:
+  #     - DISPLAY_CONTAINER_NAME=chrome
+  #     - FILE_NAME=chrome_video.mp4
+  #     - SE_OPTS=--log-level FINE
