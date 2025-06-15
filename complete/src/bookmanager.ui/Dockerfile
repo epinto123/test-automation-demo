@@ -1,5 +1,5 @@
 # pull official base image
-FROM node:17.3.0-alpine
+FROM node:20-alpine
 
 # set working directory
 WORKDIR /app
@@ -12,10 +12,12 @@ COPY package.json ./
 COPY yarn.lock ./
 
 RUN yarn install
-RUN yarn global add react-scripts@5.0.0
 
 # add app
 COPY . ./
 
-# start app
-CMD ["yarn", "start"]
+# expose port 5173 for Vite dev server (default Vite port)
+EXPOSE 5173
+
+# start app with Vite
+CMD ["yarn", "dev", "--host"]
