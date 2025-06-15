@@ -1,0 +1,33 @@
+{
+  "name": "book-manager-playwright-tests",
+  "version": "1.0.0",
+  "description": "Playwright tests for Book Manager application",
+  "main": "index.js",
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:debug": "playwright test --debug",
+    "test:ui": "playwright test --ui",
+    "test:chrome": "playwright test --project=chromium",
+    "test:firefox": "playwright test --project=firefox",
+    "test:safari": "playwright test --project=webkit",
+    "test:mobile": "playwright test --project='Mobile Chrome'",
+    "test:single-browser": "playwright test --headed --project=chromium --workers=1",
+    "test:reuse-browser": "playwright test --headed --project=chromium --workers=1 --reuse-existing-server",
+    "test:with-video": "playwright test --headed --project=chromium",
+    "test:video-failures-only": "playwright test --project=chromium",
+    "report": "playwright show-report",
+    "install-browsers": "playwright install"
+  },
+  "keywords": [
+    "playwright",
+    "testing",
+    "e2e",
+    "book-manager"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "devDependencies": {
+    "@playwright/test": "^1.40.0"
+  }
+}
